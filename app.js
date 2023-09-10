@@ -6,7 +6,7 @@ const helmet = require('helmet');
 const { errors } = require('celebrate');
 const cookieParser = require('cookie-parser');
 
-const { commonRoutes, protectedRoutes } = require('./routes/index');
+const router = require('./routes/index');
 
 const { PORT = 3000 } = process.env;
 
@@ -19,9 +19,7 @@ app.use(bodyParser.json());
 
 app.use(cookieParser());
 
-app.use('/', commonRoutes);
-
-app.use('/', protectedRoutes);
+app.use(router);
 
 app.use(errors());
 
