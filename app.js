@@ -7,22 +7,29 @@ const { errors } = require('celebrate');
 const cookieParser = require('cookie-parser');
 
 const router = require('./routes/index');
-
-const { PORT = 3000 } = process.env;
+const { errorLogger, requestLogger } = require('./middlewares/logger');
+const { limiter } = require('./middlewares/limiter');
+const cors = require('./middlewares/cors');
+const errorsHandler = require('./middlewares/error');
+const { PORT_CONFIG, DB_CONFIG } = require('./utils/config');
 
 const app = express();
-mongoose.connect('mongodb://127.0.0.1:27017/bitfilmsdb');
 
+mongoose.connect(DB_CONFIG);
+
+app.use(requestLogger);
 app.use(helmet());
-
 app.use(bodyParser.json());
-
+app.use(cors);
 app.use(cookieParser());
 
 app.use(router);
 
+app.use(errorLogger);
 app.use(errors());
+app.use(errorsHandler);
+app.use(limiter);
 
-app.listen(PORT, () => {
-  console.log(`App listening at port ${PORT}`);
+app.listen(PORT_CONFIG, () => {
+  console.log(`App listening at port ${PORT_CONFIG}`);
 });
