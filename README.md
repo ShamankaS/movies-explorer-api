@@ -1,5 +1,6 @@
 # movies-explorer-api
 backend part of graduation project
 
-IP: 158.160.69.57
+IP: 130.193.55.183
+
 Адрес домена: api.shamanka.movies-exp.nomoredomainsicu.ru
