@@ -1,6 +1,8 @@
 const { mongoose } = require('mongoose');
 const Movie = require('../models/movie');
-const { SUCCESS_CREATED_CODE, MOVIE_NOT_FOUND, FORBIDDEN_DELETE_MOVIE } = require('../utils/constants');
+const {
+  SUCCESS_CREATED_CODE, MOVIE_NOT_FOUND, FORBIDDEN_DELETE_MOVIE, DELETE_MOVIE_SUCCESS,
+} = require('../utils/constants');
 const BadRequestError = require('../utils/errors/bad-request-err');
 const NotFoundError = require('../utils/errors/not-found-err');
 const ForbiddenError = require('../utils/errors/forbidden-err');
@@ -33,7 +35,7 @@ module.exports.deleteMovie = async (req, res, next) => {
     if (movie.owner.toString() === req.user._id) {
       await Movie.deleteOne(movie);
       res.send({
-        message: 'Фильм удален',
+        message: DELETE_MOVIE_SUCCESS,
       });
     } else {
       next(new ForbiddenError(FORBIDDEN_DELETE_MOVIE));
