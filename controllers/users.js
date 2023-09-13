@@ -31,7 +31,9 @@ module.exports.updateUserData = async (req, res, next) => {
     ).orFail();
     res.send(user);
   } catch (err) {
-    if (err instanceof mongoose.Error.DocumentNotFoundError) {
+    if (err.code === 11000) {
+      next(new ConflictError(CONFLICT_USER_REGISTERED));
+    } else if (err instanceof mongoose.Error.DocumentNotFoundError) {
       next(new NotFoundError(NOT_FOUND_USER));
     } else if (err instanceof mongoose.Error.ValidationError) {
       next(new BadRequestError(INCORRECT_DATA));

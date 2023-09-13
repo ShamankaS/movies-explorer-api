@@ -1,7 +1,8 @@
 const { mongoose } = require('mongoose');
 const Movie = require('../models/movie');
 const {
-  SUCCESS_CREATED_CODE, MOVIE_NOT_FOUND, FORBIDDEN_DELETE_MOVIE, DELETE_MOVIE_SUCCESS,
+  SUCCESS_CREATED_CODE, MOVIE_NOT_FOUND,
+  FORBIDDEN_DELETE_MOVIE, DELETE_MOVIE_SUCCESS, INCORRECT_DATA,
 } = require('../utils/constants');
 const BadRequestError = require('../utils/errors/bad-request-err');
 const NotFoundError = require('../utils/errors/not-found-err');
@@ -44,7 +45,7 @@ module.exports.deleteMovie = async (req, res, next) => {
     if (err instanceof mongoose.Error.DocumentNotFoundError) {
       next(new NotFoundError(MOVIE_NOT_FOUND));
     } else if (err instanceof mongoose.Error.CastError) {
-      next(new BadRequestError(MOVIE_NOT_FOUND));
+      next(new BadRequestError(INCORRECT_DATA));
     } else {
       next(err);
     }

@@ -18,6 +18,8 @@ const app = express();
 mongoose.connect(DB_CONFIG);
 
 app.use(requestLogger);
+app.use(limiter);
+
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(cors);
@@ -28,7 +30,6 @@ app.use(router);
 app.use(errorLogger);
 app.use(errors());
 app.use(errorsHandler);
-app.use(limiter);
 
 app.listen(PORT_CONFIG, () => {
   console.log(`App listening at port ${PORT_CONFIG}`);
