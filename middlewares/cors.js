@@ -1,6 +1,6 @@
 const allowedCors = [
-  'https://shamanka.movies-exp.nomoredomainsicu.ru',
-  'http://shamanka.movies-exp.nomoredomainsicu.ru',
+  'https://shamanka.movies-exp.nomoredomainsrocks.ru',
+  'http://shamanka.movies-exp.nomoredomainsrocks.ru',
   'https://localhost:3000',
   'http://localhost:3000',
 ];
