@@ -53,6 +53,7 @@ module.exports.login = async (req, res, next) => {
       maxAge: 3600000 * 24 * 7,
       httpOnly: true,
       sameSite: 'None',
+      secure: true,
     }).send({ message: AUTHORIZATION_SUCCESS });
   } catch (err) {
     if (err instanceof mongoose.Error.ValidationError) {
