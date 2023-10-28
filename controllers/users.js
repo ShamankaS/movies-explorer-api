@@ -52,6 +52,7 @@ module.exports.login = async (req, res, next) => {
     return res.cookie(COOKIE_AUTH, token, {
       maxAge: 3600000 * 24 * 7,
       httpOnly: true,
+      sameSite: 'None',
     }).send({ message: AUTHORIZATION_SUCCESS });
   } catch (err) {
     if (err instanceof mongoose.Error.ValidationError) {
