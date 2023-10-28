@@ -88,7 +88,10 @@ module.exports.createUser = async (req, res, next) => {
 
 module.exports.logout = async (req, res, next) => {
   try {
-    return res.clearCookie(COOKIE_AUTH).send({ message: LOGOUT_SUCCESS });
+    return res.clearCookie(COOKIE_AUTH, {
+      sameSite: 'None',
+      secure: true,
+    }).send({ message: LOGOUT_SUCCESS });
   } catch (err) {
     return next(err);
   }
